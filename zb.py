@@ -9,7 +9,8 @@ res.raise_for_status()
 # 找到第一条链接，并点击打开到新的页面。
 soup = BeautifulSoup(res.text,"html.parser")
 target = soup.select("dt a")
-new_target = target[0].get('href')
+DataSource = input('输入你要的时间：')
+new_target = target[1].get('href')
 # print(new_target)
 
 new_link = "http://www.weain.mil.cn" + new_target
