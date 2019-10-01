@@ -9,8 +9,8 @@ res.raise_for_status()
 # 找到第一条链接，并点击打开到新的页面。
 soup = BeautifulSoup(res.text,"html.parser")
 target = soup.select("dt a")
-DataSource = input('输入你要的时间：')
-new_target = target[1].get('href')
+# DataSource = input('输入你要的时间：')
+new_target = target[3].get('href')
 # print(new_target)
 
 new_link = "http://www.weain.mil.cn" + new_target
@@ -21,10 +21,21 @@ res_target.raise_for_status()
 soup_target = BeautifulSoup(res_target.text,"html.parser")
 
 # key_word1 = '天线罩'
-key_word1 = '天线'
-result = soup_target.body.findAll(text=re.compile(key_word1))
-if len(result):
-    output1 = '你要的',key_word1,'项目，来了',result,'详细地址请点击：',new_link
-    print(output1)
-else:
-    output2 = '没有你要的'+key_word1+'项目!'
+key_words = []
+output = []
+key_words.append('天线')
+key_words.append('透波')
+key_words.append('玻璃钢')
+
+for kw in key_words:
+    result = soup_target.body.findAll(text = re.compile(kw))
+    # print(result)
+    if len(result):
+        output = '你要的%s项目:%s' %(kw,result)
+        print(output)
+    else:
+        output = '没有你要的%s项目!' % kw
+        print(output)
+
+
+# outputs['op1'] = output1
